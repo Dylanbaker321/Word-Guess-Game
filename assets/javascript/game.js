@@ -9,7 +9,8 @@ var gameWord = "";
 var letters = [];
 
 var solvedWord = [];
-
+var wrongGuesses = [];
+var guessesLeft = 9;
 
 //Creating the function that runs when the page loads and starts the game
 function game() {
@@ -18,10 +19,10 @@ function game() {
 
     //resets every game
     solvedWord = [];
-
+    guessesLeft = 9;
     // Splits the chosen game word into indivual letters and puts them into an array
     letters = gameWord.split("");
-    console.log(letters)
+
 
     // Makes the solved array the corect length for the chosen word
     for (var i = 0; i < letters.length; i++) {
@@ -32,6 +33,7 @@ function game() {
     //Tests
     console.log(gameWord);
     console.log(solvedWord);
+    console.log(letters)
 
 };
 
@@ -39,6 +41,21 @@ function game() {
 function guessFunction(letter) {
     //This initally states that the letter is not in the chosen game words  
     var letterStatus = false;
+    var guessedBefore = false;
+
+    //checks if you have alreay tried a letter
+    for (var i = 0; i < wrongGuesses.length; i++) {
+        if (wrongGuesses[i] === letter) {
+            guessedBefore = true;
+            console.log("You have already guessed this letter")
+
+        }
+
+    }
+if (guessedBefore){
+    guessesLeft++;
+    guessedBefore = false;
+}
 
     for (var i = 0; i < letters.length; i++) {
         if (gameWord[i] === letter) {
@@ -47,21 +64,25 @@ function guessFunction(letter) {
             console.log("The letter " + letter + " is in the word")
         }
         // this section will only run if the guessed letter is in the word and will push the letter to the correct parts of the solvedWold array
-        if (letterStatus == true) {
-            for (var i = 0; i < letters.length; i++) {
+    };
+    if (letterStatus == true) {
 
-                if (gameWord[i] === letter) {
-                    solvedWord[i] = letter
-                }
+        for (var i = 0; i < letters.length; i++) {
+            //pushs letter to correct spot in solved word
+            if (gameWord[i] === letter) {
+                solvedWord[i] = letter
             }
-
-
         }
-
+    } else {
+        guessesLeft--;
+        wrongGuesses.push(letter);
     }
-//tests
-console.log(solvedWord);
 
+
+    //tests
+    console.log(solvedWord);
+    console.log(guessesLeft)
+    console.log(wrongGuesses);
 
 
 }
