@@ -14,7 +14,7 @@ var solvedWord = [];
 //Creating the function that runs when the page loads and starts the game
 function game() {
     gameWord = words[Math.floor(Math.random() * words.length)];
-   
+
 
     //resets every game
     solvedWord = [];
@@ -23,14 +23,15 @@ function game() {
     letters = gameWord.split("");
     console.log(letters)
 
+    // Makes the solved array the corect length for the chosen word
     for (var i = 0; i < letters.length; i++) {
         solvedWord.push("_");
     };
 
 
-//Tests
-console.log(gameWord);
-console.log(solvedWord);
+    //Tests
+    console.log(gameWord);
+    console.log(solvedWord);
 
 };
 
@@ -45,7 +46,23 @@ function guessFunction(letter) {
             letterStatus = true;
             console.log("The letter " + letter + " is in the word")
         }
+        // this section will only run if the guessed letter is in the word and will push the letter to the correct parts of the solvedWold array
+        if (letterStatus == true) {
+            for (var i = 0; i < letters.length; i++) {
+
+                if (gameWord[i] === letter) {
+                    solvedWord[i] = letter
+                }
+            }
+
+
+        }
+
     }
+//tests
+console.log(solvedWord);
+
+
 
 }
 //collects key clicks
