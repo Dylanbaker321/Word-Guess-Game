@@ -20,6 +20,51 @@
         <div class="row">
             <!-- This center col will hold the game and the nessecary cards -->
             <div class="col-lg-8">
+                <div class="row">
+
+                    <!-- This card shows the wrong letters you have guessed -->
+                    <div class="card">
+                        <div class="card-body">
+                            <strong>Your Wrong Guesses This Game </strong> <span id="wrong-guesses"></span>
+                        </div>
+                    </div>
+
+                    <!-- This card shows the number of guesses left -->
+                    <div class="card">
+                        <div class="card-body">
+
+                            <strong>Guesses Left: </strong> <span id="guesses-left">9</span>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <!-- This First card will hold the word you need to get -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title"><strong>Word to Guess</strong></h3>
+                    </div>
+                    <div class="card-body">
+
+                        <h3 id="guess-word">_ _ _ _ _ _ _ _ _ </h3>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="card">
+
+                        <strong>Wins: </strong> <span id="win-counter">0</span>
+
+                    </div>
+                    <div class="card">
+
+                            <strong>Losses: </strong> <span id="loss-counter">0</span>
+    
+                        </div>
+
+
+                </div>
 
 
             </div>
