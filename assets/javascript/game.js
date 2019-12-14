@@ -7,11 +7,13 @@ var gameWord = "";
 
 //array to store the indivual letters in game word
 var letters = [];
-
+//store the game letters and blanks  of the selected word 
 var solvedWord = [];
+//stores which letters were incoreectly guessed
 var wrongGuesses = [];
 var guessesLeft = 9;
-
+var wins = 0;
+var losses = 0;
 //Creating the function that runs when the page loads and starts the game
 function game() {
     gameWord = words[Math.floor(Math.random() * words.length)];
@@ -20,6 +22,7 @@ function game() {
     //resets every game
     solvedWord = [];
     guessesLeft = 9;
+    wrongGuesses = [];
     // Splits the chosen game word into indivual letters and puts them into an array
     letters = gameWord.split("");
 
@@ -30,10 +33,18 @@ function game() {
     };
 
 
+    //writes the new game elemets to the page
+    document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
+
+    document.getElementById("guesses-left").innerHTML = guessesLeft;
+
+    document.getElementById("guess-word").innerHTML = solvedWord.join(" ");
     //Tests
     console.log(gameWord);
     console.log(solvedWord);
     console.log(letters)
+    console.log(wins);
+    console.log(losses);
 
 };
 
@@ -48,14 +59,16 @@ function guessFunction(letter) {
         if (wrongGuesses[i] === letter) {
             guessedBefore = true;
             console.log("You have already guessed this letter")
-
+          
+           
         }
 
     }
-if (guessedBefore){
-    guessesLeft++;
-    guessedBefore = false;
-}
+    if (guessedBefore) {
+        guessesLeft++;
+        guessedBefore = false;
+    }
+
 
     for (var i = 0; i < letters.length; i++) {
         if (gameWord[i] === letter) {
@@ -78,6 +91,8 @@ if (guessedBefore){
         wrongGuesses.push(letter);
     }
 
+    //runs the after guess function 
+    afterGuess()
 
     //tests
     console.log(solvedWord);
@@ -86,6 +101,32 @@ if (guessedBefore){
 
 
 }
+
+function afterGuess() {
+
+
+    //runs if you win by guessing the full word
+    if (solvedWord.toString() === letters.toString()) {
+        console.log("you win")
+        wins++;
+        document.getElementById("win-counter").innerHTML = wins;
+        game()
+
+    };
+
+    //runs if you lose by running out of guesses
+    if (guessesLeft === 0) {
+        console.log("you lose");
+        losses++;
+        document.getElementById("loss-counter").innerHTML = losses;
+        game();
+    }
+
+}
+
+
+
+
 //collects key clicks
 
 document.onkeyup = function (event) {
@@ -96,6 +137,12 @@ document.onkeyup = function (event) {
 
         //runs the function that checks if the letter guess is in the chosen game word
         guessFunction(guess);
+
+        document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
+
+        document.getElementById("guesses-left").innerHTML = guessesLeft;
+
+        document.getElementById("guess-word").innerHTML = solvedWord.join(" ");
     }
 };
 
